@@ -216,6 +216,7 @@ export const en: Translation = {
 	[Key.siteStatsLastUpdate]: "Last Activity",
 	[Key.siteStatsDaysAgo]: "{days} days ago",
 	[Key.siteStatsDays]: "{days} days",
+	[Key.siteStatsVisitors]: "Visitors",
 
 	// Calendar Component
 	[Key.calendarSunday]: "Sun",

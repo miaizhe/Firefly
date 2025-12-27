@@ -2,7 +2,7 @@ import type { ProfileConfig } from "../types/config";
 
 export const profileConfig: ProfileConfig = {
 	// 头像
-	avatar: "https://i1.hdslb.com/bfs/face/07370a271bbe76c926ceebf1e354218632cfc9ed.webp",
+	avatar: "/assets/images/user.jpg",
 	// 名字
 	name: "Wuxi-blog",
 	// 个人签名

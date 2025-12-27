@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		// 留空以使用默认 favicon
 		{
-			src: "https://i1.hdslb.com/bfs/face/07370a271bbe76c926ceebf1e354218632cfc9ed.webp", // 图标文件路径
+			src: "/assets/images/user.jpg", // 图标文件路径
 			theme: "light", // 可选，指定主题 'light' | 'dark'
 			sizes: "32x32", // 可选，图标大小
 		},
@@ -45,7 +45,7 @@ export const siteConfig: SiteConfig = {
 	// { type: "image", value: "https://example.com/logo.png", alt: "Firefly Logo" }
 	navbarLogo: {
 		type: "image",
-		value: "https://i1.hdslb.com/bfs/face/07370a271bbe76c926ceebf1e354218632cfc9ed.webp",
+		value: "/assets/images/user.jpg",
 		alt: "🍀",
 	},
 	navbarTitle: "Wuxi-blog", // 导航栏标题，可以设置为与 title 不同的值，如果不设置则使用 title

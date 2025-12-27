@@ -6,16 +6,16 @@ import { fontConfig } from "./fontConfig";
 const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
-	title: "Wuxi-blog",
-	subtitle: "Wuxi-blog",
-	site_url: "https://firefly.cuteleaf.cn",
+	title: "芜夕的博客",
+	subtitle: "芜夕的博客",
+	site_url: "https://blog.miaizhe.xyz",
 	description:
-		"Wuxi-blog 是一款清新美观且现代化个人博客，专为技术爱好者和内容创作者设计。",
+		"芜夕的博客 - 记录技术、分享生活、探索未知的数字花园。",
 	keywords: [
-		"Wuxi-blog",
-		"Fuwari",
+		"芜夕",
+		"芜夕的博客",
+		"Firefly",
 		"Astro",
-		"ACGN",
 		"博客",
 		"技术博客",
 		"静态博客",
@@ -48,7 +48,7 @@ export const siteConfig: SiteConfig = {
 		value: "/assets/images/user.jpg",
 		alt: "🍀",
 	},
-	navbarTitle: "Wuxi-blog", // 导航栏标题，可以设置为与 title 不同的值，如果不设置则使用 title
+	navbarTitle: "芜夕的博客", // 导航栏标题，可以设置为与 title 不同的值，如果不设置则使用 title
 	navbarWidthFull: false, // 全宽导航栏，导航栏是否占满屏幕宽度，true：占满，false：不占满
 
 	// 站点开始日期，用于统计运行天数

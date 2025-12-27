@@ -4,9 +4,9 @@ export const profileConfig: ProfileConfig = {
 	// 头像
 	avatar: "/assets/images/user.jpg",
 	// 名字
-	name: "Wuxi-blog",
+	name: "芜夕",
 	// 个人签名
-	bio: "Hello, I'm Wuxi.",
+	bio: "你好，我是芜夕。",
 
 	// 链接配置
 	// 已经预装的图标集：fa6-brands，fa6-regular，fa6-solid，material-symbols，simple-icons
@@ -30,7 +30,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Email",
 			icon: "fa6-solid:envelope",
-			url: "mailto:xiaye@msn.com",
+			url: "mailto:ftyfty2021@163.com",
 			showName: false,
 		},
 		{

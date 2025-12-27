@@ -85,6 +85,9 @@ const processedLocalPlaylist =
         <div id="local-aplayer"></div>
       ) : null}
     </div>
+
+    <!-- 音乐律动画布 -->
+    <canvas id="music-visualizer" class="music-visualizer"></canvas>
   </>
 )}
 
@@ -121,6 +124,146 @@ const processedLocalPlaylist =
     // 全局播放器实例存储（防止页面切换时重复创建）
     if (!window.__globalAPlayer) {
       window.__globalAPlayer = null;
+    }
+
+    // 全局可视化器状态
+    if (!window.__musicVisualizer) {
+      window.__musicVisualizer = {
+        audioCtx: null,
+        analyser: null,
+        source: null,
+        animationId: null,
+        currentAudioElement: null
+      };
+    }
+
+    function initVisualizer(aplayer) {
+      const audio = aplayer.audio;
+      if (!audio) return;
+
+      const canvas = document.getElementById('music-visualizer');
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      const v = window.__musicVisualizer;
+
+      // 调整画布大小
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = 100; // 稍微增加高度
+      }
+      resizeCanvas();
+      window.removeEventListener('resize', resizeCanvas);
+      window.addEventListener('resize', resizeCanvas);
+
+      function startDrawing() {
+        if (v.animationId) return; // 避免重复启动
+
+        const bufferLength = v.analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        
+        v.analyser.smoothingTimeConstant = 0.85;
+
+        function draw() {
+          if (!v.source) return;
+          v.animationId = requestAnimationFrame(draw);
+          v.analyser.getByteFrequencyData(dataArray);
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          const barWidth = (canvas.width / (bufferLength * 0.5));
+          let x = 0;
+
+          const hue = document.documentElement.style.getPropertyValue('--hue') || '165';
+
+          for (let i = 0; i < bufferLength * 0.5; i++) {
+            const barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
+            
+            ctx.fillStyle = `oklch(0.7 0.14 ${hue} / ${0.2 + (dataArray[i] / 255) * 0.5})`;
+            
+            const r = 4;
+            const w = Math.max(2, barWidth - 4);
+            const h = Math.max(4, barHeight);
+            const y = canvas.height - h;
+            
+            if (ctx.roundRect) {
+                ctx.beginPath();
+                ctx.roundRect(x, y, w, h, [r, r, 0, 0]);
+                ctx.fill();
+            } else {
+                ctx.fillRect(x, y, w, h);
+            }
+
+            x += barWidth;
+          }
+        }
+        draw();
+      }
+
+      function setupAudioContext() {
+        try {
+          if (!v.audioCtx) {
+            v.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            v.analyser = v.audioCtx.createAnalyser();
+            v.analyser.fftSize = 256;
+          }
+
+          // 如果已经初始化过 source 且没有报错，直接启动
+          if (v.source && v.currentAudioElement === audio) {
+            if (v.audioCtx.state === 'suspended') {
+              v.audioCtx.resume();
+            }
+            startDrawing();
+            return;
+          }
+
+          // APlayer 可能会在切换歌曲时重新设置 src，这会导致跨域限制重新生效
+          // 我们尝试在 play 事件触发时立即设置 crossOrigin
+          if (audio.src && (audio.src.startsWith('http') || audio.src.startsWith('//'))) {
+            if (audio.crossOrigin !== "anonymous") {
+                audio.crossOrigin = "anonymous";
+                // 重新加载音频以应用 CORS 设置，这可能会导致短暂卡顿，但对于频谱分析是必要的
+                // 注意：这可能会导致死循环，需要判断
+                const currentSrc = audio.src;
+                audio.load();
+                audio.src = currentSrc;
+            }
+          }
+
+          if (v.currentAudioElement !== audio || !v.source) {
+            try {
+                v.source = v.audioCtx.createMediaElementSource(audio);
+                v.source.connect(v.analyser);
+                v.analyser.connect(v.audioCtx.destination);
+                v.currentAudioElement = audio;
+            } catch (err) {
+                console.error("Visualizer: Failed to create source", err);
+            }
+          }
+
+          if (v.audioCtx.state === 'suspended') {
+            v.audioCtx.resume();
+          }
+
+          startDrawing();
+        } catch (e) {
+          console.error("Visualizer: setup error", e);
+        }
+      }
+
+      audio.addEventListener('play', () => {
+        setupAudioContext();
+      });
+      audio.addEventListener('pause', () => {
+        if (v.animationId) {
+            cancelAnimationFrame(v.animationId);
+            v.animationId = null;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+      if (!audio.paused) {
+        setupAudioContext();
+      }
     }
     
     function tryAutoplay(aplayer) {
@@ -287,6 +430,9 @@ const processedLocalPlaylist =
           if (!isRestore && config.player?.autoplay && aplayer.paused) {
             tryAutoplay(aplayer);
           }
+
+          // 初始化可视化器
+          initVisualizer(aplayer);
         }, 100);
       });
     }
@@ -542,6 +688,25 @@ const processedLocalPlaylist =
   /* 移动端隐藏容器 */
   #aplayer-container.mobile-hide {
     display: none !important;
+  }
+
+  .music-visualizer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    pointer-events: none;
+    z-index: 50; /* 低于播放器但高于内容 */
+    transition: opacity 0.5s ease;
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
+    opacity: 0.8;
+  }
+
+  /* 当播放器隐藏时也隐藏律动条 */
+  .mobile-hide ~ .music-visualizer {
+    display: none;
   }
 </style>
 

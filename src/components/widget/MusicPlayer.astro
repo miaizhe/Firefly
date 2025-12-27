@@ -693,15 +693,26 @@ const processedLocalPlaylist =
   .music-visualizer {
     position: fixed;
     bottom: 0;
+    bottom: env(safe-area-inset-bottom, 0);
     left: 0;
     width: 100%;
     height: 80px;
     pointer-events: none;
-    z-index: 50; /* 低于播放器但高于内容 */
+    z-index: 40; /* 高于内容(30)但低于导航栏(50)和播放器 */
     transition: opacity 0.5s ease;
     mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
     -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
     opacity: 0.8;
+  }
+
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .music-visualizer {
+      height: 50px; /* 移动端降低高度，避免遮挡过多 */
+      bottom: 0 !important;
+      bottom: env(safe-area-inset-bottom, 0) !important;
+      z-index: 60; /* 移动端提高层级，确保在最上方 */
+    }
   }
 
   /* 当播放器隐藏时也隐藏律动条 */

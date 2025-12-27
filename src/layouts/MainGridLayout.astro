@@ -490,11 +490,11 @@ const navbarWidthFull = siteConfig.navbarWidthFull ?? false;
   
   /* 文章详情页布局切换动画 - 简洁优雅的淡入淡出 */
   #post-container {
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
   
   #post-container.layout-switching {
-    animation: gentleFade 0.4s ease-in-out;
+    animation: gentleFade 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
   
   @keyframes gentleFade {
@@ -510,11 +510,11 @@ const navbarWidthFull = siteConfig.navbarWidthFull ?? false;
   
   /* 主内容区布局切换动画 - 平滑宽度过渡 */
   #swup-container {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   }
   
   #swup-container.layout-transitioning {
-    animation: smoothWidth 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: smoothWidth 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   }
   
   @keyframes smoothWidth {
@@ -528,8 +528,8 @@ const navbarWidthFull = siteConfig.navbarWidthFull ?? false;
   
   /* 右侧栏平滑过渡 */
   #right-sidebar {
-    transition: opacity 0.35s ease-in-out, 
-                transform 0.35s ease-in-out;
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
 </style>
 

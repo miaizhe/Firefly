@@ -112,6 +112,17 @@ const initialLayoutClass =
     const postListContainer = document.getElementById("post-list-container");
     if (!postListContainer) return;
 
+    // 重新应用动画
+    postListContainer.querySelectorAll('.onload-animation').forEach((el, index) => {
+      const htmlEl = el as HTMLElement;
+      htmlEl.style.opacity = '0';
+      htmlEl.style.animation = 'none';
+      // 强制重排
+      void htmlEl.offsetWidth;
+      htmlEl.style.animation = '';
+      htmlEl.style.opacity = '';
+    });
+
     // 检查屏幕宽度
     const screenWidth = window.innerWidth;
     const isSmallScreen = screenWidth < 1200;

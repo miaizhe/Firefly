@@ -176,6 +176,7 @@ export class WidgetManager {
 		const classes: string[] = [];
 
 		// 添加基础类名
+		classes.push("onload-animation");
 		if (component.class) {
 			classes.push(component.class);
 		}
@@ -204,9 +205,7 @@ export class WidgetManager {
 
 		// 添加动画延迟样式
 		const animationDelay = this.getAnimationDelay(component, index);
-		if (animationDelay > 0) {
-			styles.push(`animation-delay: ${animationDelay}ms`);
-		}
+		styles.push(`animation-delay: calc(var(--content-delay) + ${animationDelay}ms)`);
 
 		return styles.join("; ");
 	}

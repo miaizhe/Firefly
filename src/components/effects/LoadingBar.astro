@@ -1,0 +1,89 @@
+---
+---
+<div id="loading-bar" class="loading-bar"></div>
+
+<style is:global>
+  .loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    z-index: 99999;
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    transition: width 0.4s ease, opacity 0.4s ease;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .loading-bar.loading {
+    opacity: 1;
+    animation: loading-bar-trickle 2s linear forwards;
+  }
+
+  @keyframes loading-bar-trickle {
+    0% { width: 0%; }
+    10% { width: 10%; }
+    30% { width: 40%; }
+    50% { width: 60%; }
+    80% { width: 85%; }
+    100% { width: 95%; }
+  }
+
+  /* Rainbow variant like AcoFork's blog */
+  .loading-bar.rainbow {
+    background: linear-gradient(to right, 
+      #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff
+    );
+    background-size: 400% 100%;
+    animation: loading-bar-trickle 2s linear forwards, rainbow-move 2s linear infinite;
+  }
+
+  @keyframes rainbow-move {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 400% 0%; }
+  }
+</style>
+
+<script>
+  const setup = () => {
+    const bar = document.getElementById('loading-bar');
+    if (!bar) return;
+
+    const swup = (window as any).swup;
+    if (!swup) return;
+
+    // Hook into swup events
+    swup.hooks.on('visit:start', () => {
+      bar.classList.add('loading', 'rainbow');
+      // Reset width immediately
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      // Force reflow
+      void bar.offsetWidth;
+      // Restore transition
+      bar.style.transition = 'width 0.4s ease, opacity 0.4s ease';
+    });
+
+    swup.hooks.on('visit:end', () => {
+      // Set to 100% when visit ends
+      bar.style.width = '100%';
+      
+      // Delay hiding to let the 100% width be visible
+      setTimeout(() => {
+        bar.classList.remove('loading');
+        // Reset after fade out
+        setTimeout(() => {
+          bar.style.width = '0%';
+        }, 400);
+      }, 300);
+    });
+  }
+
+  // Handle both initial load and swup re-enabling
+  if ((window as any).swup?.hooks) {
+    setup();
+  } else {
+    document.addEventListener('swup:enable', setup);
+  }
+</script>

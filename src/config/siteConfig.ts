@@ -104,19 +104,14 @@ export const siteConfig: SiteConfig = {
 		switchable: true,
 
 		// 背景图片配置
-		src: {
-			// 桌面背景图片
-			desktop: "/assets/images/d1.webp",
-			// 移动背景图片
-			mobile: "/assets/images/m3.webp",
-		},
+		src: "https://t.alcy.cc/ycy",
 
 		// Banner模式特有配置
 		banner: {
 			// 图片位置
 			// 支持所有CSS object-position值，如: 'top', 'center', 'bottom', 'left top', 'right bottom', '25% 75%', '10px 20px'..
 			// 如果不知道怎么配置百分百之类的配置，推荐直接使用：'center'居中，'top'顶部居中，'bottom' 底部居中，'left'左侧居中，'right'右侧居中
-			position: "0% 20%",
+			position: "center",
 
 			homeText: {
 				// 主页显示自定义文本（全局开关）
@@ -143,8 +138,8 @@ export const siteConfig: SiteConfig = {
 			},
 			credit: {
 				enable: {
-					desktop: true, // 桌面端显示横幅图片来源文本
-					mobile: true, // 移动端显示横幅图片来源文本
+					desktop: false, // 桌面端显示横幅图片来源文本
+					mobile: false, // 移动端显示横幅图片来源文本
 				},
 				text: {
 					desktop: "Pixiv - 晚晚喵", // 桌面端要显示的来源文本

@@ -31,7 +31,7 @@ const description = i18n(I18nKey.guestbookDescription);
 
 <MainGridLayout title={title} description={description}>
   <div
-    class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32"
+    class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32 onload-animation"
   >
     <div class="card-base z-10 px-9 py-6 relative w-full">
       <!-- 页面标题和描述 -->
@@ -58,7 +58,7 @@ const description = i18n(I18nKey.guestbookDescription);
   </div>
 
   <!-- 评论区 -->
-  <div class="mt-4">
+  <div class="mt-4 onload-animation" style="animation-delay: calc(var(--content-delay) + 100ms)">
     {isCommentEnabled ? (
       <Comment post={guestbookPost} customPath="/guestbook/" />
     ) : (

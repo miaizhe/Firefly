@@ -90,9 +90,9 @@ onMount(async () => {
 });
 </script>
 
-<div class="card-base px-8 py-6">
-    {#each groups as group}
-        <div>
+<div class="card-base px-8 py-6 onload-animation">
+    {#each groups as group, groupIndex}
+        <div class="onload-animation" style="animation-delay: calc(var(--content-delay) + {groupIndex * 50}ms)">
             <div class="flex flex-row w-full items-center h-[3.75rem]">
                 <div class="w-[15%] md:w-[10%] transition text-2xl font-bold text-right text-75">
                     {group.year}
@@ -108,11 +108,12 @@ onMount(async () => {
                 </div>
             </div>
 
-            {#each group.posts as post}
+            {#each group.posts as post, postIndex}
                 <a
                         href={getPostUrlBySlug(post.id)}
                         aria-label={post.data.title}
-                        class="group btn-plain !block h-10 w-full rounded-lg hover:text-[initial]"
+                        class="group btn-plain !block h-10 w-full rounded-lg hover:text-[initial] onload-animation"
+                        style="animation-delay: calc(var(--content-delay) + {(groupIndex + postIndex + 1) * 20}ms)"
                 >
                     <div class="flex flex-row justify-start items-center h-full">
                         <!-- date -->

@@ -6,13 +6,13 @@ import { fontConfig } from "./fontConfig";
 const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
-	title: "Firefly",
-	subtitle: "Demo site",
+	title: "Wuxi-blog",
+	subtitle: "Wuxi-blog",
 	site_url: "https://firefly.cuteleaf.cn",
 	description:
-		"Firefly 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。",
+		"Wuxi-blog 是一款清新美观且现代化个人博客，专为技术爱好者和内容创作者设计。",
 	keywords: [
-		"Firefly",
+		"Wuxi-blog",
 		"Fuwari",
 		"Astro",
 		"ACGN",
@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		// 留空以使用默认 favicon
 		{
-			src: "/assets/images/favicon.ico", // 图标文件路径
+			src: "https://i1.hdslb.com/bfs/face/07370a271bbe76c926ceebf1e354218632cfc9ed.webp", // 图标文件路径
 			theme: "light", // 可选，指定主题 'light' | 'dark'
 			sizes: "32x32", // 可选，图标大小
 		},
@@ -45,10 +45,10 @@ export const siteConfig: SiteConfig = {
 	// { type: "image", value: "https://example.com/logo.png", alt: "Firefly Logo" }
 	navbarLogo: {
 		type: "image",
-		value: "/assets/images/LiuYingPure3.svg",
+		value: "https://i1.hdslb.com/bfs/face/07370a271bbe76c926ceebf1e354218632cfc9ed.webp",
 		alt: "🍀",
 	},
-	navbarTitle: "Firefly", // 导航栏标题，可以设置为与 title 不同的值，如果不设置则使用 title
+	navbarTitle: "Wuxi-blog", // 导航栏标题，可以设置为与 title 不同的值，如果不设置则使用 title
 	navbarWidthFull: false, // 全宽导航栏，导航栏是否占满屏幕宽度，true：占满，false：不占满
 
 	// 站点开始日期，用于统计运行天数
@@ -117,7 +117,7 @@ export const siteConfig: SiteConfig = {
 				// 主页显示自定义文本（全局开关）
 				enable: true,
 				// 主页横幅主标题
-				title: "Lovely firefly!",
+				title: "Welcome to Wuxi-blog!",
 				// 主页横幅副标题
 				subtitle: [
 					"In Reddened Chrysalis, I Once Rest",

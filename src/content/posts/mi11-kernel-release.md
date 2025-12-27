@@ -2,7 +2,7 @@
 title: 小米11 (venus) KernelSU-Next & SukiSU Ultra 内核发布
 published: 2025-07-17
 description: '支持 MIUI, HyperOS 1-2 及 ColorOS 15 的小米11定制内核，集成 LXC/Docker 支持'
-image: '../images/mi11_power.jpg'
+image: './images/mi11_power.jpg'
 tags: [小米11, venus, KernelSU, SukiSU, Android内核]
 category: '玩机心得'
 draft: false
@@ -32,7 +32,7 @@ draft: false
 ### 2. 功耗表现
 - 主打省电，平均功耗仅在 **2.x W** 左右，表现优异。
 
-![耗电统计](../images/mi11_power.jpg)
+![耗电统计](./images/mi11_power.jpg)
 *平均功耗 2.18W，表现出色*
 
 ---
@@ -51,11 +51,11 @@ draft: false
 以下是内核在不同系统下的运行及功耗表现参考：
 
 ### SukiSU Ultra 管理器
-![SukiSU Ultra 管理器](../images/mi11_sukisu.jpg)
+![SukiSU Ultra 管理器](./images/mi11_sukisu.jpg)
 *SukiSU Ultra 工作状态展示，内核版本 5.4.237-KernelSU-Next-LXC/Docker-2025.7.17*
 
 ### 系统信息 (ColorOS 15)
-![系统信息](../images/mi11_coloros.jpg)
+![系统信息](./images/mi11_coloros.jpg)
 *Android 15 (Vanilla Ice Cream) 适配情况，支持 ColorOS 15 for Mi11*
 
 ---

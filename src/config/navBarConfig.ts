@@ -37,6 +37,13 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 
 	links.push(LinkPreset.Friends);
 
+	links.push({
+		name: "监控",
+		url: "https://eo.wu-xi.xyz/",
+		icon: "material-symbols:monitoring",
+		external: true,
+	});
+
 	// 根据配置决定是否添加留言板页面
 	if (siteConfig.pages.guestbook) {
 		links.push(LinkPreset.Guestbook);

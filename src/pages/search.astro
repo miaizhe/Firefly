@@ -22,7 +22,7 @@ const description = "";
             const url = scriptUrl.replace(/\/$/, "")
             try {
                 const response = await fetch(url, { method: 'HEAD' });
-                if (response.status !== 200) {
+                if (!response.ok) {
                     return;
                 }
                 const pagefind = await import(scriptUrl);
@@ -32,7 +32,9 @@ const description = "";
                 window.pagefind = pagefind;
                 window.dispatchEvent(new Event('pagefindready'));
             } catch (error) {
-                console.warn("Pagefind script not found or failed to load.");
+                if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+                    console.warn("Pagefind script not found or failed to load.");
+                }
                 window.dispatchEvent(new Event('pagefindloaderror'));
             }
         }

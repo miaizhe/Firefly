@@ -44,6 +44,13 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		external: true,
 	});
 
+	links.push({
+		name: "统计",
+		url: "https://umami.miaizhe.xyz/share/AmqAqsexXj3zoUuI",
+		icon: "material-symbols:analytics",
+		external: true,
+	});
+
 	// 根据配置决定是否添加留言板页面
 	if (siteConfig.pages.guestbook) {
 		links.push(LinkPreset.Guestbook);
